@@ -1,1 +1,26 @@
+name: Daily Motivation Upload
 
+on:
+  schedule:
+    - cron: '0 18 * * *'  # Jeden Tag um 18:00 UTC
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Repo auschecken
+        uses: actions/checkout@v3
+
+      - name: Python einrichten
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Dependencies installieren
+        run: |
+          pip install -r requirements.txt
+
+      - name: Script ausführen
+        run: python main.py
